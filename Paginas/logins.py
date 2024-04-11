@@ -19,10 +19,10 @@ class Make_Login():
         pass_textField.clear()
         correo_textField.clear()
 
-        correo_textField.send_keys('christianbaezcedeno@gmail.com')
+        correo_textField.send_keys('8295028892')
         pass_textField.send_keys('Ch19102004@#$$')
 
-        self.driver.save_screenshot('Paginas/results/prueba1.png')
+        self.driver.save_screenshot('Paginas/results/test_login_succes1.png')
 
         iniciar = WebDriverWait(self.driver,5).until(EC.element_to_be_clickable((By.XPATH,"//button[@type='submit']")))
         iniciar.click()
@@ -31,7 +31,16 @@ class Make_Login():
         while True:
             try:
                 WebDriverWait(self.driver, 10).until(EC.url_to_be("https://www.instagram.com/accounts/onetap/?next=%2F"))
-                self.driver.save_screenshot('Paginas/results/prueba2.png')
+                home = WebDriverWait(self.driver,5).until(EC.element_to_be_clickable((By.CSS_SELECTOR,"a")))
+                home.click()
+                
+                WebDriverWait(self.driver, 10).until(EC.url_to_be("https://www.instagram.com/?next=%2F"))
+                button = WebDriverWait(self.driver,5).until(EC.element_to_be_clickable((By.XPATH,"//button[@class='_a9-- _ap36 _a9_1' and @tabindex='0']")))
+                button.click()
+                
+                time.sleep(2)
+
+                self.driver.save_screenshot('Paginas/results/test_login_succes2.png')
 
                 break
 
@@ -39,4 +48,21 @@ class Make_Login():
                 print("La página no cargó en 10 segundos.")
                 break
             
-        time.sleep(500)
+
+    def login_failure(self):
+            correo_textField = WebDriverWait(self.driver,20).until(EC.element_to_be_clickable((By.NAME,'username')))
+            pass_textField = WebDriverWait(self.driver,20).until(EC.element_to_be_clickable((By.NAME,'password')))
+
+            pass_textField.clear()
+            correo_textField.clear()
+
+            correo_textField.send_keys('kasjefbhasfgawjik@gmail.com')
+            pass_textField.send_keys('8098900627A*')
+
+            self.driver.save_screenshot('Paginas/results/test_login_fail1.png')
+
+            iniciar = WebDriverWait(self.driver,5).until(EC.element_to_be_clickable((By.XPATH,"//button[@type='submit']")))
+            iniciar.click()
+
+            time.sleep(2)
+            self.driver.save_screenshot('Paginas/results/test_login_fail2.png')
